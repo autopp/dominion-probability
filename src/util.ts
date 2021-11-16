@@ -41,7 +41,10 @@ function withCombinationOfEstates(
   const size = args[0]
   const [numOfEstate, callbackfn] = args.length == 2 ? [3, args[1]] : [args[1], args[2]]
 
-  const indices = new Array(size).map((_, i) => i)
+  const indices: number[] = []
+  for (let i = 0; i < size; i++) {
+    indices.push(i)
+  }
 
   return combination(indices, numOfEstate).flatMap((estates) => {
     const factory = new DeckFactory(size, estates)
