@@ -1,4 +1,4 @@
-import { Card, COPPER, ESTATE } from './tactic'
+import { Card, COPPER, ESTATE } from '@/tactic'
 import { combination } from 'arubyray'
 
 class DeckFactory {
@@ -22,18 +22,18 @@ class DeckFactory {
   }
 }
 
-function withCombinationOfEstates(
+export function withCombinationOfEstates(
   size: number,
   callbackfn: (factory: DeckFactory, otherIndices: number[]) => Card[][]
 ): Card[][]
 
-function withCombinationOfEstates(
+export function withCombinationOfEstates(
   size: number,
   numOfEstate: number,
   callbackfn: (factory: DeckFactory, otherIndices: number[]) => Card[][]
 ): Card[][]
 
-function withCombinationOfEstates(
+export function withCombinationOfEstates(
   ...args:
     | [number, (factory: DeckFactory, otherIndices: number[]) => Card[][]]
     | [number, number, (factory: DeckFactory, otherIndices: number[]) => Card[][]]
@@ -54,8 +54,4 @@ function withCombinationOfEstates(
       indices.filter((i) => !estates.includes(i))
     )
   })
-}
-
-export const genDeckUtil = {
-  withCombinationOfEstates,
 }
