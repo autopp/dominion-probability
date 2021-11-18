@@ -17,7 +17,7 @@ class TestTactic implements Tactic<[Card[], Card[]], TestTopic> {
   }
 
   splitToHands(deck: Card[]): [Card[], Card[]] {
-    return [[deck[0] as Card], [deck[1] as Card]]
+    return [[deck[0]], [deck[1]]]
   }
 
   patternOfDeck(): { factor: number; options: Record<string, never> }[] {

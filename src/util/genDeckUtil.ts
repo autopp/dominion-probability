@@ -58,10 +58,10 @@ export function withCombinationOfEstates(
 
 export function genDecksWithDouble(card: Card): Card[][] {
   return withCombinationOfEstates(12, (factory, otherIndices) =>
-    combination(otherIndices, 2).map((gained) =>
+    combination(otherIndices, 2).map(([first, second]) =>
       factory.create((deck) => {
-        deck[gained[0] as number] = card
-        deck[gained[1] as number] = card
+        deck[first] = card
+        deck[second] = card
       })
     )
   )
