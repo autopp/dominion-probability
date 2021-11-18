@@ -1,5 +1,5 @@
-import { Card, COPPER, ESTATE } from '@/tactic'
-import { combination } from 'arubyray'
+import { ACTION, Card, COPPER, ESTATE, SILVER } from '@/tactic'
+import { combination, permutation } from 'arubyray'
 
 class DeckFactory {
   private readonly size: number
@@ -62,6 +62,21 @@ export function genDecksWithDouble(card: Card): Card[][] {
       factory.create((deck) => {
         deck[first] = card
         deck[second] = card
+      })
+    )
+  )
+}
+
+export function genDecksWithDoubleSilver(): Card[][] {
+  return genDecksWithDouble(SILVER)
+}
+
+export function genDecksWithSilverAndAction(): Card[][] {
+  return withCombinationOfEstates(12, (factory, otherIndices) =>
+    permutation(otherIndices, 2).map(([silver, action]) =>
+      factory.create((deck) => {
+        deck[silver] = SILVER
+        deck[action] = ACTION
       })
     )
   )
