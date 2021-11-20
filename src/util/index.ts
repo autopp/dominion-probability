@@ -1,3 +1,5 @@
 export * from './genDeckUtil'
 export * from './splitToHandsUtil'
+export * from './simulateUtil'
 export * from './resultUtil'
+export * from './topicUtil'
