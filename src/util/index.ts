@@ -1,2 +1,3 @@
-export * as genDeckUtil from './genDeckUtil'
-export * as splitToHandsUtil from './splitToHandsUtil'
+export * from './genDeckUtil'
+export * from './splitToHandsUtil'
+export * from './resultUtil'
