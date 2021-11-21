@@ -19,3 +19,7 @@ export function sumOfCoin(hand: Card[], others: { [k: Card]: number | (() => num
     return sum
   }, 0)
 }
+
+export function simulateTurnWithBaseCoinOnly(hand: Card[]): { coin: number } {
+  return { coin: sumOfCoin(hand) }
+}
