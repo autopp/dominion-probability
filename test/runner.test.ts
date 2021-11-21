@@ -20,7 +20,7 @@ class TestTactic implements Tactic<[Card[], Card[]], TestTopic> {
     return [[deck[0]], [deck[1]]]
   }
 
-  patternOfDeck(): { factor: number; options: Record<string, never> }[] {
+  patternsOfDeck(): { factor: number; options: Record<string, never> }[] {
     return [{ factor: 1, options: {} }]
   }
 

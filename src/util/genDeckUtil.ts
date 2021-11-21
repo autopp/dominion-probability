@@ -81,3 +81,7 @@ export function genDecksWithSilverAndAction(): Card[][] {
     )
   )
 }
+
+export function simpleDeckPattern(): { factor: number; options: Record<string, unknown> }[] {
+  return [{ factor: 1, options: {} }]
+}

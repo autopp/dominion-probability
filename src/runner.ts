@@ -26,7 +26,7 @@ export class Runner {
     tactic: Tactic<Deck, Topic, DeckOptions>
   ): { result: Result<Topic>; factor: number }[] {
     const decks = this.aggregateDecks(tactic.genDecks().map((deck) => tactic.splitToHands(deck)))
-    const patterns = tactic.patternOfDeck()
+    const patterns = tactic.patternsOfDeck()
 
     return decks.flatMap(({ deck, count }) =>
       patterns.map(({ factor, options }) => ({

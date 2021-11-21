@@ -12,7 +12,7 @@ export interface Tactic<Deck, Topic extends string, DeckOptions = Record<string,
   title(): string
   genDecks(): Card[][]
   splitToHands(deck: Card[]): Deck
-  patternOfDeck(): { factor: number; options: DeckOptions }[]
+  patternsOfDeck(): { factor: number; options: DeckOptions }[]
   simulate(deck: Deck, options: DeckOptions): Result<Topic>
   topics(): { [k in Topic]: string }
 }
