@@ -1,22 +1,19 @@
 import { run } from '@/runner'
-import { ACTION, Card, COPPER, ESTATE, Result, SILVER, Tactic } from '@/tactic'
+import { Card, COPPER, ESTATE, Result, SILVER, Tactic } from '@/tactic'
 import {
   all,
   any,
   AtLeastOnce,
   Both,
   BothAndAtLeastOnce,
-  genDecksWithSilverAndAction,
   resultOfAtLeastOnce5,
   resultOfAtLeastOnces,
-  resultOfBoth,
   resultOfBoth5,
   resultOfBothAndAtLeastOnce,
   resultOfTrashingEstate,
   resultOfTrashingEstateAndAtLeastOnce5,
   simpleDeckPattern,
   simulateTurnWithBaseCoinOnly,
-  splitByNoDraw,
   sumOfCoin,
   topicForAtLeastOnce5,
   topicForAtLeastOnce6,
@@ -26,7 +23,6 @@ import {
   topicForBothAndAtLeastOnce,
   topicForTrashingEstate,
   topicForTrashingEstateAndAtLeastOnce5,
-  trashingEstate,
   TrashingEstate,
   TrashingEstateAndAtLeastOnce,
   withCombinationOfEstates,

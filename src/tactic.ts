@@ -5,6 +5,7 @@ export const SILVER: Card = 'silver'
 export const GOLD: Card = 'gold'
 export const ESTATE: Card = 'estate'
 export const ACTION: Card = 'action'
+export const CURSE: Card = 'curse'
 
 export type Result<Topic extends string> = { [k in Topic]: boolean }
 
