@@ -26,6 +26,10 @@ export function topicForAtLeastOnce8(geq = true): { [t in AtLeastOnce<8>]: strin
   return topicForAtLeastOnce(8, geq)
 }
 
+export function topicForAtLeastOnces<Coin extends number>(...coins: Coin[]): { [t in AtLeastOnce<Coin>]: string } {
+  return Object.assign({}, ...coins.map((coin) => topicForAtLeastOnce(coin)))
+}
+
 export function topicForBoth<Coin extends number>(coin: Coin, geq = true): { [t in Both<Coin>]: string } {
   return { [`both${coin}`]: `両ターン共に${coin}金${geq ? '以上' : ''}が出る確率` } as { [t in Both<Coin>]: string }
 }

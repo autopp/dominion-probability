@@ -96,12 +96,7 @@ export function resultOfAtLeastOnces<Coin extends number>(
   t4: { coin: number },
   ...coins: Coin[]
 ): { [t in AtLeastOnce<Coin>]: boolean } {
-  const results = {} as { [t in AtLeastOnce<Coin>]: boolean }
-  coins.forEach((coin) => {
-    results[`atLeastOnce${coin}`] = atLeastOnce(t3, t4, coin)
-  })
-
-  return results
+  return Object.assign({}, ...coins.map((coin) => resultOfAtLeastOnce(t3, t4, coin)))
 }
 
 export function resultOfBoth<Coin extends number>(

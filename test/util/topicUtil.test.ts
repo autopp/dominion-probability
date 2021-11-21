@@ -4,6 +4,7 @@ import {
   topicForAtLeastOnce6,
   topicForAtLeastOnce7,
   topicForAtLeastOnce8,
+  topicForAtLeastOnces,
   topicForBoth,
   topicForBoth5,
   topicForBothAndAtLeastOnce,
@@ -54,6 +55,21 @@ describe('topicForAtLeastOnce8', () => {
     { geq: false, expected: { atLeastOnce8: '一度でも8金が出る確率' } },
   ])('when geq = $geq, returns $expected', ({ geq, expected }) => {
     expect(topicForAtLeastOnce8(geq)).toEqual(expected)
+  })
+})
+
+describe('topicForAtLeastOnces', () => {
+  it.each([
+    {
+      coins: [5, 6, 7],
+      expected: {
+        atLeastOnce5: '一度でも5金以上が出る確率',
+        atLeastOnce6: '一度でも6金以上が出る確率',
+        atLeastOnce7: '一度でも7金以上が出る確率',
+      },
+    },
+  ])('when coins = $coins, returns $expected', ({ coins, expected }) => {
+    expect(topicForAtLeastOnces(...coins)).toEqual(expected)
   })
 })
 
