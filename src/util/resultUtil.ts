@@ -1,4 +1,5 @@
 import { Result } from '@/tactic'
+import { AtLeastOnce } from './topicUtil'
 
 function assertContainsKey(t3: Record<string, unknown>, t4: Record<string, unknown>, k: string): void {
   if (t3[k] === undefined) {
@@ -88,6 +89,19 @@ export function resultOfAtLeastOnce6(t3: { coin: number }, t4: { coin: number })
 
 export function resultOfAtLeastOnce7(t3: { coin: number }, t4: { coin: number }): { atLeastOnce7: boolean } {
   return resultOfAtLeastOnce(t3, t4, 7)
+}
+
+export function resultOfAtLeastOnces<Coin extends number>(
+  t3: { coin: number },
+  t4: { coin: number },
+  ...coins: Coin[]
+): { [t in AtLeastOnce<Coin>]: boolean } {
+  const results = {} as { [t in AtLeastOnce<Coin>]: boolean }
+  coins.forEach((coin) => {
+    results[`atLeastOnce${coin}`] = atLeastOnce(t3, t4, coin)
+  })
+
+  return results
 }
 
 export function resultOfBoth<Coin extends number>(

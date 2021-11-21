@@ -13,6 +13,7 @@ import {
   resultOfAtLeastOnce5,
   resultOfAtLeastOnce6,
   resultOfAtLeastOnce7,
+  resultOfAtLeastOnces,
   resultOfBoth,
   resultOfBoth5,
   resultOfBothAndAtLeastOnce,
@@ -49,7 +50,7 @@ describe('atLeastOnce', () => {
     { cond: 'turn3 reaches threshold', t3: { coin: 5 }, t4: { coin: 4 }, expected: true },
     { cond: 'turn4 reaches threshold', t3: { coin: 4 }, t4: { coin: 5 }, expected: true },
     { cond: 'both reach threshold', t3: { coin: 5 }, t4: { coin: 5 }, expected: true },
-    { cond: 'both do not reache threshold', t3: { coin: 4 }, t4: { coin: 4 }, expected: false },
+    { cond: 'both do not reach threshold', t3: { coin: 4 }, t4: { coin: 4 }, expected: false },
   ])('when $cond, returns $expected', ({ t3, t4, expected }) => {
     expect(atLeastOnce(t3, t4, 5)).toEqual(expected)
   })
@@ -60,7 +61,7 @@ describe('atLeastOnce5', () => {
     { cond: 'turn3 reaches threshold', t3: { coin: 5 }, t4: { coin: 4 }, expected: true },
     { cond: 'turn4 reaches threshold', t3: { coin: 4 }, t4: { coin: 5 }, expected: true },
     { cond: 'both reach threshold', t3: { coin: 5 }, t4: { coin: 5 }, expected: true },
-    { cond: 'both do not reache threshold', t3: { coin: 4 }, t4: { coin: 4 }, expected: false },
+    { cond: 'both do not reach threshold', t3: { coin: 4 }, t4: { coin: 4 }, expected: false },
   ])('when $cond, returns $expected', ({ t3, t4, expected }) => {
     expect(atLeastOnce5(t3, t4)).toEqual(expected)
   })
@@ -71,7 +72,7 @@ describe('atLeastOnce6', () => {
     { cond: 'turn3 reaches threshold', t3: { coin: 6 }, t4: { coin: 5 }, expected: true },
     { cond: 'turn4 reaches threshold', t3: { coin: 5 }, t4: { coin: 6 }, expected: true },
     { cond: 'both reach threshold', t3: { coin: 6 }, t4: { coin: 6 }, expected: true },
-    { cond: 'both do not reache threshold', t3: { coin: 5 }, t4: { coin: 5 }, expected: false },
+    { cond: 'both do not reach threshold', t3: { coin: 5 }, t4: { coin: 5 }, expected: false },
   ])('when $cond, returns $expected', ({ t3, t4, expected }) => {
     expect(atLeastOnce6(t3, t4)).toEqual(expected)
   })
@@ -82,7 +83,7 @@ describe('atLeastOnce7', () => {
     { cond: 'turn3 reaches threshold', t3: { coin: 7 }, t4: { coin: 6 }, expected: true },
     { cond: 'turn4 reaches threshold', t3: { coin: 6 }, t4: { coin: 7 }, expected: true },
     { cond: 'both reach threshold', t3: { coin: 7 }, t4: { coin: 7 }, expected: true },
-    { cond: 'both do not reache threshold', t3: { coin: 6 }, t4: { coin: 6 }, expected: false },
+    { cond: 'both do not reach threshold', t3: { coin: 6 }, t4: { coin: 6 }, expected: false },
   ])('when $cond, returns $expected', ({ t3, t4, expected }) => {
     expect(atLeastOnce7(t3, t4)).toEqual(expected)
   })
@@ -93,7 +94,7 @@ describe('both', () => {
     { cond: 'turn3 reaches threshold', t3: { coin: 5 }, t4: { coin: 4 }, expected: false },
     { cond: 'turn4 reaches threshold', t3: { coin: 4 }, t4: { coin: 5 }, expected: false },
     { cond: 'both reach threshold', t3: { coin: 5 }, t4: { coin: 5 }, expected: true },
-    { cond: 'both do not reache threshold', t3: { coin: 4 }, t4: { coin: 4 }, expected: false },
+    { cond: 'both do not reach threshold', t3: { coin: 4 }, t4: { coin: 4 }, expected: false },
   ])('when $cond, returns $expected', ({ t3, t4, expected }) => {
     expect(both(t3, t4, 5)).toEqual(expected)
   })
@@ -104,7 +105,7 @@ describe('both5', () => {
     { cond: 'turn3 reaches threshold', t3: { coin: 5 }, t4: { coin: 4 }, expected: false },
     { cond: 'turn4 reaches threshold', t3: { coin: 4 }, t4: { coin: 5 }, expected: false },
     { cond: 'both reach threshold', t3: { coin: 5 }, t4: { coin: 5 }, expected: true },
-    { cond: 'both do not reache threshold', t3: { coin: 4 }, t4: { coin: 4 }, expected: false },
+    { cond: 'both do not reach threshold', t3: { coin: 4 }, t4: { coin: 4 }, expected: false },
   ])('when $cond, returns $expected', ({ t3, t4, expected }) => {
     expect(both5(t3, t4)).toEqual(expected)
   })
@@ -148,7 +149,7 @@ describe('resultOfAtLeastOnce', () => {
     { cond: 'turn3 reaches threshold', t3: { coin: 5 }, t4: { coin: 4 }, expected: { atLeastOnce5: true } },
     { cond: 'turn4 reaches threshold', t3: { coin: 4 }, t4: { coin: 5 }, expected: { atLeastOnce5: true } },
     { cond: 'both reach threshold', t3: { coin: 5 }, t4: { coin: 5 }, expected: { atLeastOnce5: true } },
-    { cond: 'both do not reache threshold', t3: { coin: 4 }, t4: { coin: 4 }, expected: { atLeastOnce5: false } },
+    { cond: 'both do not reach threshold', t3: { coin: 4 }, t4: { coin: 4 }, expected: { atLeastOnce5: false } },
   ])('when $cond, returns $expected', ({ t3, t4, expected }) => {
     expect(resultOfAtLeastOnce(t3, t4, 5)).toEqual(expected)
   })
@@ -159,7 +160,7 @@ describe('resultOfAtLeastOnce5', () => {
     { cond: 'turn3 reaches threshold', t3: { coin: 5 }, t4: { coin: 4 }, expected: { atLeastOnce5: true } },
     { cond: 'turn4 reaches threshold', t3: { coin: 4 }, t4: { coin: 5 }, expected: { atLeastOnce5: true } },
     { cond: 'both reach threshold', t3: { coin: 5 }, t4: { coin: 5 }, expected: { atLeastOnce5: true } },
-    { cond: 'both do not reache threshold', t3: { coin: 4 }, t4: { coin: 4 }, expected: { atLeastOnce5: false } },
+    { cond: 'both do not reach threshold', t3: { coin: 4 }, t4: { coin: 4 }, expected: { atLeastOnce5: false } },
   ])('when $cond, returns $expected', ({ t3, t4, expected }) => {
     expect(resultOfAtLeastOnce5(t3, t4)).toEqual(expected)
   })
@@ -170,7 +171,7 @@ describe('resultOfAtLeastOnce6', () => {
     { cond: 'turn3 reaches threshold', t3: { coin: 6 }, t4: { coin: 5 }, expected: { atLeastOnce6: true } },
     { cond: 'turn4 reaches threshold', t3: { coin: 5 }, t4: { coin: 6 }, expected: { atLeastOnce6: true } },
     { cond: 'both reach threshold', t3: { coin: 6 }, t4: { coin: 6 }, expected: { atLeastOnce6: true } },
-    { cond: 'both do not reache threshold', t3: { coin: 5 }, t4: { coin: 5 }, expected: { atLeastOnce6: false } },
+    { cond: 'both do not reach threshold', t3: { coin: 5 }, t4: { coin: 5 }, expected: { atLeastOnce6: false } },
   ])('when $cond, returns $expected', ({ t3, t4, expected }) => {
     expect(resultOfAtLeastOnce6(t3, t4)).toEqual(expected)
   })
@@ -181,9 +182,23 @@ describe('resultOfAtLeastOnce7', () => {
     { cond: 'turn3 reaches threshold', t3: { coin: 7 }, t4: { coin: 6 }, expected: { atLeastOnce7: true } },
     { cond: 'turn4 reaches threshold', t3: { coin: 6 }, t4: { coin: 7 }, expected: { atLeastOnce7: true } },
     { cond: 'both reach threshold', t3: { coin: 7 }, t4: { coin: 7 }, expected: { atLeastOnce7: true } },
-    { cond: 'both do not reache threshold', t3: { coin: 6 }, t4: { coin: 6 }, expected: { atLeastOnce7: false } },
+    { cond: 'both do not reach threshold', t3: { coin: 6 }, t4: { coin: 6 }, expected: { atLeastOnce7: false } },
   ])('when $cond, returns $expected', ({ t3, t4, expected }) => {
     expect(resultOfAtLeastOnce7(t3, t4)).toEqual(expected)
+  })
+})
+
+describe('resultOfAtLeastOnces', () => {
+  it.each([
+    {
+      cond: 'both reaches first threshold, turn3 reaches second threashold and both do not reach third threshold',
+      t3: { coin: 6 },
+      t4: { coin: 5 },
+      coins: [5, 6, 7],
+      expected: { atLeastOnce5: true, atLeastOnce6: true, atLeastOnce7: false },
+    },
+  ])('when $cond, returns $expected', ({ t3, t4, coins, expected }) => {
+    expect(resultOfAtLeastOnces(t3, t4, ...coins)).toEqual(expected)
   })
 })
 
@@ -192,7 +207,7 @@ describe('resultOfBoth', () => {
     { cond: 'turn3 reaches threshold', t3: { coin: 5 }, t4: { coin: 4 }, expected: { both5: false } },
     { cond: 'turn4 reaches threshold', t3: { coin: 4 }, t4: { coin: 5 }, expected: { both5: false } },
     { cond: 'both reach threshold', t3: { coin: 5 }, t4: { coin: 5 }, expected: { both5: true } },
-    { cond: 'both do not reache threshold', t3: { coin: 4 }, t4: { coin: 4 }, expected: { both5: false } },
+    { cond: 'both do not reach threshold', t3: { coin: 4 }, t4: { coin: 4 }, expected: { both5: false } },
   ])('when $cond, returns $expected', ({ t3, t4, expected }) => {
     expect(resultOfBoth(t3, t4, 5)).toEqual(expected)
   })
@@ -203,7 +218,7 @@ describe('resultOfBoth5', () => {
     { cond: 'turn3 reaches threshold', t3: { coin: 5 }, t4: { coin: 4 }, expected: { both5: false } },
     { cond: 'turn4 reaches threshold', t3: { coin: 4 }, t4: { coin: 5 }, expected: { both5: false } },
     { cond: 'both reach threshold', t3: { coin: 5 }, t4: { coin: 5 }, expected: { both5: true } },
-    { cond: 'both do not reache threshold', t3: { coin: 4 }, t4: { coin: 4 }, expected: { both5: false } },
+    { cond: 'both do not reach threshold', t3: { coin: 4 }, t4: { coin: 4 }, expected: { both5: false } },
   ])('when $cond, returns $expected', ({ t3, t4, expected }) => {
     expect(resultOfBoth5(t3, t4)).toEqual(expected)
   })
@@ -225,7 +240,7 @@ describe('resultOfBothAndAtLeastOnce', () => {
     },
     { cond: 'reaches both thresholds', t3: { coin: 5 }, t4: { coin: 6 }, expected: { both5AndAtLeastOnce6: true } },
     {
-      cond: 'both do not reache threshold',
+      cond: 'both do not reach threshold',
       t3: { coin: 5 },
       t4: { coin: 4 },
       expected: { both5AndAtLeastOnce6: false },
