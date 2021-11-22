@@ -14,6 +14,7 @@ import {
   resultOfTrashingEstateAndAtLeastOnce5,
   simpleDeckPattern,
   simulateTurnWithBaseCoinOnly,
+  splitByNoDraw,
   sumOfCoin,
   topicForAtLeastOnce5,
   topicForAtLeastOnce6,
@@ -59,7 +60,7 @@ abstract class BorderGuard<Topic extends string> implements Tactic<[Card[], Card
       return [deck.slice(0, 5).sort(), this.chooseBorderGuard(deck.slice(5, 12)).sort()]
     }
 
-    return [deck.slice(0, 5).sort(), deck.slice(5, 10).sort()]
+    return splitByNoDraw(deck)
   }
 
   patternsOfDeck = simpleDeckPattern

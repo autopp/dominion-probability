@@ -6,6 +6,8 @@ import {
   resultOfAtLeastOnces,
   simpleDeckPattern,
   simulateTurnWithBaseCoinOnly,
+  splitByNoDraw,
+  splitInto,
   topicForAtLeastOnce7,
   topicForAtLeastOnces,
 } from '@/util'
@@ -21,14 +23,14 @@ class Caravan implements Tactic<[Card[], Card[]], Topic> {
     const i = deck.indexOf(ACTION)
 
     if (i >= 0 && i < 5) {
-      return [deck.slice(0, 6).sort(), deck.slice(6, 12).sort()]
+      return splitInto(deck, 6, 6)
     }
 
     if (i >= 5 && i < 10) {
-      return [deck.slice(0, 5).sort(), deck.slice(5, 11).sort()]
+      return splitInto(deck, 5, 6)
     }
 
-    return [deck.slice(0, 5).sort(), deck.slice(5, 10).sort()]
+    return splitByNoDraw(deck)
   }
 
   patternsOfDeck = simpleDeckPattern
