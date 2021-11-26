@@ -1,24 +1,16 @@
 import { run } from '@/runner'
-import { ACTION, Card, COPPER, ESTATE, Result, SILVER, Tactic } from '@/tactic'
+import { Card, COPPER, ESTATE, Result, SILVER, Tactic } from '@/tactic'
 import {
   AtLeastOnce,
   Both,
-  genDecksWithSilverAndAction,
   resultOfAtLeastOnces,
   resultOfBoth5,
-  resultOfTrashingEstate,
-  resultOfTrashingEstateAndAtLeastOnce5,
   simpleDeckPattern,
   simulateTurnWithBaseCoinOnly,
   splitByNoDraw,
-  sumOfCoin,
   topicForAtLeastOnce5,
   topicForAtLeastOnce6,
   topicForBoth5,
-  topicForTrashingEstate,
-  topicForTrashingEstateAndAtLeastOnce5,
-  TrashingEstate,
-  TrashingEstateAndAtLeastOnce,
   withCombinationOfEstates,
 } from '@/util'
 import { combination } from 'arubyray'
