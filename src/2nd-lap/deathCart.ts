@@ -79,7 +79,7 @@ class DeathCartWithSilver extends DeathCart {
         permutation(difference(otherIndices, ruins), 2).map(([silver, deathCart]) =>
           factory.create((deck) => {
             deck[ruins[0]] = RUIN
-            deck[ruins[0]] = RUIN
+            deck[ruins[1]] = RUIN
             deck[silver] = SILVER
             deck[deathCart] = DEATH_CART
           })
