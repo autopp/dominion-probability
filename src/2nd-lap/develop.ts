@@ -11,8 +11,6 @@ import {
   simpleDeckPattern,
   splitByNoDraw,
   sumOfCoin,
-  topicForAtLeastOnce5,
-  topicForAtLeastOnce6,
   topicForAtLeastOnces,
   topicForBoth5,
   topicForTrashingEstate,
