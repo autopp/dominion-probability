@@ -14,7 +14,7 @@ import {
 type Topic = AtLeastOnce<5 | 6 | 7>
 
 class GhostTown implements Tactic<[Card[], Card[]], Topic> {
-  readonly title = () => '屋敷場かつ銀貨・司教で4ターン目までに……'
+  readonly title = () => '銀貨・ゴーストタウンで4ターン目までに……'
 
   genDecks = () =>
     withCombinationOfEstates(11, (factory, otherIndices) =>
