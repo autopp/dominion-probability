@@ -5,7 +5,7 @@ import { simpleDeckPattern, splitByNoDraw, sumOfCoin, withCombinationOfEstates }
 type Topic = 'max7' | 'max6' | 'max5'
 
 class CursedGold implements Tactic<[Card[], Card[]], Topic> {
-  readonly title = () => '銅貨7枚・屋敷3枚で2ターン目までに……'
+  readonly title = () => '銅貨6枚・呪われた金貨1枚・屋敷3枚で2ターン目までに……'
 
   genDecks() {
     return withCombinationOfEstates(10, (factory, otherIndices) =>
