@@ -8,11 +8,7 @@ class WayOfTheMonkey implements Tactic<[Card[], Card[]], Topic> {
   readonly title = () => '避難所場でサルの習性もしくラバの習性がある時、2ターン目までに……'
 
   genDecks() {
-    return withCombinationOfEstates(10, 2, (factory) => [
-      factory.create(() => {
-        return
-      }),
-    ])
+    return withCombinationOfEstates(10, 2, (factory) => [factory.create()])
   }
   splitToHands = splitByNoDraw
   patternsOfDeck = simpleDeckPattern

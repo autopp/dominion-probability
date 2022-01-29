@@ -10,11 +10,7 @@ class Doctor implements Tactic<Card[], Topic> {
 
   genDecks() {
     return withCombinationOfEstates(5, (factory) => {
-      return [
-        factory.create(() => {
-          return
-        }),
-      ]
+      return [factory.create()]
     })
   }
   splitToHands = (deck: Card[]) => deck

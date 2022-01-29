@@ -16,11 +16,7 @@ class Base implements Tactic<[Card[], Card[]], Topic> {
 
   genDecks() {
     return withCombinationOfEstates(10, (factory) => {
-      return [
-        factory.create(() => {
-          return
-        }),
-      ]
+      return [factory.create()]
     })
   }
   splitToHands = splitByNoDraw

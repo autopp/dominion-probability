@@ -10,13 +10,15 @@ class DeckFactory {
     this.estates = estates
   }
 
-  create(callbackfn: (deck: Card[]) => void): Card[] {
+  create(callbackfn?: ((deck: Card[]) => void) | undefined): Card[] {
     const deck = new Array(this.size).fill(COPPER)
     this.estates.forEach((i) => {
       deck[i] = ESTATE
     })
 
-    callbackfn(deck)
+    if (callbackfn !== undefined) {
+      callbackfn(deck)
+    }
 
     return deck
   }
