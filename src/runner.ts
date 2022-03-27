@@ -13,7 +13,7 @@ export class Runner {
   ): void {
     const allPatterns = this.simulateAll(tactic)
     const all = allPatterns.reduce((sum, { factor }) => sum + factor, 0)
-    this.log(`### ${tactic.title()}`)
+    this.log(`#### ${tactic.title()}`)
     this.log('')
     Object.entries<string>(tactic.topics()).forEach(([t, text]) => {
       const topic = t as Topic
