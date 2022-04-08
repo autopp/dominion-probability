@@ -2,10 +2,13 @@ import { run } from '@/runner'
 import { ACTION, Card, Result, Tactic } from '@/tactic'
 import {
   AtLeastOnce,
+  genDecksWithDouble,
   genDecksWithSilverAndAction,
   resultOfAtLeastOnces,
   simpleDeckPattern,
   splitByDraw,
+  splitByNoDraw,
+  splitInto,
   sumOfCoin,
   topicForAtLeastOnce7,
   topicForAtLeastOnces,
@@ -13,13 +16,11 @@ import {
 
 type Topic = AtLeastOnce<5 | 6 | 7>
 
-class Settlers implements Tactic<[Card[], Card[]], Topic> {
-  title = () => '銀・開拓者で4ターン目までに……'
-  genDecks = genDecksWithSilverAndAction
+abstract class Settlers implements Tactic<[Card[], Card[]], Topic> {
+  abstract title(): string
+  abstract genDecks(): string[][]
 
-  splitToHands(deck: Card[]) {
-    return splitByDraw(deck, 1)
-  }
+  abstract splitToHands(deck: Card[]): [Card[], Card[]]
 
   patternsOfDeck = simpleDeckPattern
 
@@ -42,12 +43,51 @@ class Settlers implements Tactic<[Card[], Card[]], Topic> {
   private simulateTurn(hand: Card[], canPickUp: boolean) {
     let coin = sumOfCoin(hand)
 
-    if (canPickUp && hand.includes(ACTION)) {
-      coin++
+    if (canPickUp) {
+      coin += hand.filter((c) => c === ACTION).length
     }
 
     return { coin }
   }
 }
 
-run(new Settlers())
+class SettlersWithSilver extends Settlers {
+  title = () => '銀・開拓者で4ターン目までに……'
+  genDecks = genDecksWithSilverAndAction
+
+  splitToHands(deck: Card[]) {
+    return splitByDraw(deck, 1)
+  }
+}
+
+class DoubleSettlers extends Settlers {
+  title = () => '開拓者・開拓者で4ターン目までに……'
+  genDecks() {
+    return genDecksWithDouble(ACTION)
+  }
+
+  splitToHands(deck: Card[]) {
+    const first = deck.findIndex((c) => c === ACTION)
+    const second = deck.slice(first).findIndex((c) => c === ACTION) + first + 1
+
+    if (first >= 0 && first < 5) {
+      if (second >= 1 && second < 6) {
+        return splitInto(deck, 7, 5)
+      } else if (second < 11) {
+        return splitInto(deck, 6, 6)
+      } else {
+        return splitInto(deck, 6, 5)
+      }
+    } else if (first >= 5 && first < 10) {
+      if (second >= 6 && second < 11) {
+        return splitInto(deck, 5, 7)
+      } else {
+        return splitInto(deck, 5, 6)
+      }
+    } else {
+      return splitByNoDraw(deck)
+    }
+  }
+}
+
+run(new SettlersWithSilver(), new DoubleSettlers())
