@@ -2,20 +2,12 @@ import { run } from '@/runner'
 import { ACTION, Card, ESTATE, Result, Tactic } from '@/tactic'
 import {
   AtLeastOnce,
-  Both,
   genDecksWithDouble,
-  genDecksWithSilverAndAction,
   resultOfAtLeastOnces,
-  resultOfBoth5,
   simpleDeckPattern,
-  splitByDraw,
   splitByNoDraw,
   sumOfCoin,
   topicForAtLeastOnce5,
-  topicForAtLeastOnce6,
-  topicForAtLeastOnce7,
-  topicForBoth5,
-  withCombinationOfEstates,
 } from '@/util'
 
 type UsingHermits = `usingHermit${1 | 2}`
