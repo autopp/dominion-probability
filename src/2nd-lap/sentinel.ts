@@ -35,7 +35,7 @@ class Sentinel implements Tactic<[Card[], Card[], Card[]], Topic> {
   }
 
   splitToHands(deck: Card[]): [Card[], Card[], Card[]] {
-    return [deck.slice(0, 5).sort(), deck.slice(5, 10).sort(), deck.slice(10, 15).sort()]
+    return [deck.slice(0, 5).sort(), deck.slice(5, 10).sort(), deck.slice(10, 15)]
   }
   readonly patternsOfDeck = simpleDeckPattern
 
@@ -47,7 +47,7 @@ class Sentinel implements Tactic<[Card[], Card[], Card[]], Topic> {
     if (t3.usingSentinel) {
       const choosed = this.chooseSentinel(deck[1])
       trashingEstates = choosed.trashingEstates
-      t4 = this.simulateTurn([...choosed.rest, ...deck[2]])
+      t4 = this.simulateTurn([...choosed.rest, ...deck[2].slice(0, 2)])
     } else {
       t4 = this.simulateTurn(deck[1])
       trashingEstates = t4.usingSentinel ? this.chooseSentinel(deck[2]).trashingEstates : 0
@@ -58,12 +58,12 @@ class Sentinel implements Tactic<[Card[], Card[], Card[]], Topic> {
 
     return {
       ...resultOfAtLeastOnces(t3, t4, 5, 6),
-      trashingEstates1: trashingEstates === 1,
+      trashingEstates1: trashingEstates >= 1,
       trashingEstates2: trashingEstates === 2,
-      trashingEstates1AndAtLeaseOnce5: trashingEstates === 1 && isAtLeastOnce5,
+      trashingEstates1AndAtLeaseOnce5: trashingEstates >= 1 && isAtLeastOnce5,
       trashingEstates2AndAtLeaseOnce5: trashingEstates === 2 && isAtLeastOnce5,
       cost5InThirdDeck,
-      trashingEstates1AndCost5InThirdDeck: trashingEstates === 1 && cost5InThirdDeck,
+      trashingEstates1AndCost5InThirdDeck: trashingEstates >= 1 && cost5InThirdDeck,
       trashingEstates2AndCost5InThirdDeck: trashingEstates === 2 && cost5InThirdDeck,
     }
   }
@@ -72,12 +72,12 @@ class Sentinel implements Tactic<[Card[], Card[], Card[]], Topic> {
     return {
       ...topicForAtLeastOnce5(),
       ...topicForAtLeastOnce6(false),
-      trashingEstates1: '屋敷を1枚廃棄できる確率',
+      trashingEstates1: '屋敷を廃棄できる確率',
       trashingEstates2: '屋敷を2枚廃棄できる確率',
-      trashingEstates1AndAtLeaseOnce5: '屋敷を1枚廃棄しつつ一度でも5金以上が出る確率',
+      trashingEstates1AndAtLeaseOnce5: '屋敷を廃棄しつつ一度でも5金以上が出る確率',
       trashingEstates2AndAtLeaseOnce5: '屋敷を2枚廃棄しつつ一度でも5金以上が出る確率',
       cost5InThirdDeck: '5金以上のカードが山札3周目に入る確率',
-      trashingEstates1AndCost5InThirdDeck: '屋敷1枚を廃棄しつつ5金以上のカードが山札3周目に入る確率',
+      trashingEstates1AndCost5InThirdDeck: '屋敷を廃棄しつつ5金以上のカードが山札3周目に入る確率',
       trashingEstates2AndCost5InThirdDeck: '屋敷1枚を廃棄しつつ5金以上のカードが山札3周目に入る確率',
     }
   }
