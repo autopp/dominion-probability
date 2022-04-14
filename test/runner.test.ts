@@ -49,7 +49,7 @@ describe('Runner', () => {
       const runner = new Runner(log)
 
       runner.run(new TestTactic())
-      const expected = `### test
+      const expected = `#### test
 
 - copper included: 100.00%
 - estate included: 33.33%
