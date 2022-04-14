@@ -58,6 +58,19 @@ export function withCombinationOfEstates(
   })
 }
 
+export function genDecksWith(...cards: Card[]): Card[][] {
+  const n = cards.length
+  return withCombinationOfEstates(10 + n, (factory, otherIndices) =>
+    combination(otherIndices, n).map((indices) =>
+      factory.create((deck) => {
+        indices.forEach((i, j) => {
+          deck[i] = cards[j]
+        })
+      })
+    )
+  )
+}
+
 export function genDecksWithDouble(card: Card): Card[][] {
   return withCombinationOfEstates(12, (factory, otherIndices) =>
     combination(otherIndices, 2).map(([first, second]) =>
