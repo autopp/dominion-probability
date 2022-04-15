@@ -1,7 +1,7 @@
 import { run } from '@/runner'
 import { Card, ESTATE, Result, Tactic } from '@/tactic'
 import { simpleDeckPattern, withCombinationOfEstates } from '@/util'
-import { take } from 'arubyray'
+import { count, take } from 'arubyray'
 
 type Topic = 'trashingOneEstate' | 'trashingTwoEstates'
 
@@ -17,7 +17,7 @@ class Doctor implements Tactic<Card[], Topic> {
   patternsOfDeck = simpleDeckPattern
 
   simulate(deck: Card[]): Result<Topic> {
-    const trashingEstate = take(deck, 2).filter((c) => c === ESTATE).length
+    const trashingEstate = count(take(deck, 2), (c) => c === ESTATE)
 
     return {
       trashingOneEstate: trashingEstate === 1,

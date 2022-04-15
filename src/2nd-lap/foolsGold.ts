@@ -13,6 +13,7 @@ import {
   topicForAtLeastOnces,
   topicForBoth5,
 } from '@/util'
+import { count } from 'arubyray'
 
 type Topic = AtLeastOnce<5 | 6 | 7 | 8> | Both<5>
 
@@ -44,9 +45,9 @@ class FoolsGold implements Tactic<[Card[], Card[]], Topic> {
 
   private simulateTurn(hand: Card[]) {
     let coin = sumOfCoin(hand)
-    const count = hand.filter((c) => c === FOOLS_GOLD).length
-    if (count > 0) {
-      coin += 4 * (count - 1) + 1
+    const foolsGolds = count(hand, (c) => c === FOOLS_GOLD)
+    if (foolsGolds > 0) {
+      coin += 4 * (foolsGolds - 1) + 1
     }
 
     return { coin }

@@ -10,7 +10,7 @@ import {
   topicForAtLeastOnce5,
   topicForAtLeastOnce6,
 } from '@/util'
-import { permutation } from 'arubyray'
+import { count, permutation } from 'arubyray'
 
 type TrashingEstates = `trashingEstates${1 | 2}`
 type TrashingEstatesAndAtLeastOnce5 = `trashingEstates${1 | 2}AndAtLeaseOnce5`
@@ -101,7 +101,7 @@ class Sentinel implements Tactic<[Card[], Card[], Card[]], Topic> {
       }
     })
 
-    return { trashingEstates: sorted.slice(0, 2).filter((c) => c === ESTATE).length, rest: sorted.slice(2, 5) }
+    return { trashingEstates: count(sorted.slice(0, 2), (c) => c === ESTATE), rest: sorted.slice(2, 5) }
   }
 }
 

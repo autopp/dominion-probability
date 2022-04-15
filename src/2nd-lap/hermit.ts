@@ -9,6 +9,7 @@ import {
   sumOfCoin,
   topicForAtLeastOnce5,
 } from '@/util'
+import { count } from 'arubyray'
 
 type UsingHermits = `usingHermit${1 | 2}`
 type TrashingEstates = `trashingEstates${1 | 2}`
@@ -28,8 +29,8 @@ class Hermit implements Tactic<[Card[], Card[]], Topic> {
   simulate(deck: [Card[], Card[]]): Result<Topic> {
     const t3 = this.simulateTurn(deck[0], false)
     const t4 = this.simulateTurn(deck[1], true)
-    const usingHermits = [t3, t4].filter(({ usingHermit }) => usingHermit).length
-    const trashingEstates = [t3, t4].filter(({ trashingEstate }) => trashingEstate).length
+    const usingHermits = count([t3, t4], ({ usingHermit }) => usingHermit)
+    const trashingEstates = count([t3, t4], ({ trashingEstate }) => trashingEstate)
 
     return {
       ...resultOfAtLeastOnces(t3, t4, 5),

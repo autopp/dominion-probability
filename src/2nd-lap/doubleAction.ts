@@ -14,7 +14,7 @@ import {
   topicForBoth5,
   withCombinationOfEstates,
 } from '@/util'
-import { permutation } from 'arubyray'
+import { count, permutation } from 'arubyray'
 
 type Topic = AtLeastOnce<5 | 6> | Both<5> | 'bothAction' | 'doubled'
 
@@ -59,7 +59,7 @@ class DoubleCoinAction extends DoubleAction<[Card[], Card[]]> {
   private simulateTurn(hand: Card[]) {
     let coin = sumOfCoin(hand)
     const hasNecropolis = hand.includes(NECROPOLIS)
-    const coinActions = hand.filter((c) => c === COIN_ACTION).length
+    const coinActions = count(hand, (c) => c === COIN_ACTION)
     const doubled = coinActions === 2 && !hasNecropolis
     const played = doubled ? 1 : coinActions
     coin += played * 2
@@ -107,7 +107,7 @@ class CoinAndDrawAction extends DoubleAction<Card[]> {
     if (allHand.includes(COIN_ACTION) && (!doubled || !useDraw)) {
       coin += 2
     }
-    const played = doubled ? 1 : allHand.filter((card) => card === COIN_ACTION || card === DRAW_ACTION).length
+    const played = doubled ? 1 : count(allHand, (card) => card === COIN_ACTION || card === DRAW_ACTION)
 
     return { coin, drew: useDraw, played, doubled }
   }

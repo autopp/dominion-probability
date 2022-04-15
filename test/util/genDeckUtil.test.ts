@@ -1,5 +1,6 @@
 import { ACTION, Card, COPPER, ESTATE, SILVER } from '@/tactic'
 import { genDecksWith, genDecksWithDouble, withCombinationOfEstates } from '@/util/genDeckUtil'
+import { count } from 'arubyray'
 import 'jest-extended'
 
 describe('withCombinationOfEstates()', () => {
@@ -22,10 +23,10 @@ describe('genDecksWith()', () => {
     expect(actual).toSatisfyAll(
       (deck: Card[]) =>
         deck.length === 12 &&
-        deck.filter((card) => card === COPPER).length === 7 &&
-        deck.filter((card) => card === ESTATE).length === 3 &&
-        deck.filter((card) => card === SILVER).length === 1 &&
-        deck.filter((card) => card === ACTION).length === 1
+        count(deck, (card) => card === COPPER) === 7 &&
+        count(deck, (card) => card === ESTATE) === 3 &&
+        count(deck, (card) => card === SILVER) === 1 &&
+        count(deck, (card) => card === ACTION) === 1
     )
   })
 })
@@ -37,9 +38,9 @@ describe('genDecksWithDouble()', () => {
     expect(actual).toSatisfyAll(
       (deck: Card[]) =>
         deck.length === 12 &&
-        deck.filter((card) => card === COPPER).length === 7 &&
-        deck.filter((card) => card === ESTATE).length === 3 &&
-        deck.filter((card) => card === SILVER).length === 2
+        count(deck, (card) => card === COPPER) === 7 &&
+        count(deck, (card) => card === ESTATE) === 3 &&
+        count(deck, (card) => card === SILVER) === 2
     )
   })
 })

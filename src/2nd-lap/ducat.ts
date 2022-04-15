@@ -13,7 +13,7 @@ import {
   topicForBoth5,
   withCombinationOfEstates,
 } from '@/util'
-import { combination, permutation } from 'arubyray'
+import { combination, count, permutation } from 'arubyray'
 
 type Topic = AtLeastOnce<5 | 6 | 7> | Both<5>
 
@@ -47,7 +47,7 @@ abstract class Ducat implements Tactic<[Card[], Card[]], Topic> {
 
   private simulateTurn(hand: Card[], coffer: number, usingAllCoffer: boolean) {
     const coin = sumOfCoin(hand)
-    const allCoffer = coffer + hand.filter((c) => c === DUCAT).length
+    const allCoffer = coffer + count(hand, (c) => c === DUCAT)
     const usedCoffer = usingAllCoffer ? allCoffer : coin < 5 && coin + allCoffer >= 5 ? 5 - coin : 0
 
     return { coin: coin + usedCoffer, coffer: allCoffer - usedCoffer }

@@ -18,6 +18,7 @@ import {
   topicForBoth5,
   topicForBothAndAtLeastOnce,
 } from '@/util'
+import { count } from 'arubyray'
 
 type Topic = AtLeastOnce<5 | 6 | 7 | 8> | Both<5 | 6> | BothAndAtLeastOnce<5, 6>
 
@@ -53,7 +54,7 @@ class Coppersmith implements Tactic<[Card[], Card[]], Topic> {
     let coin = sumOfCoin(hand)
 
     if (hand.includes(ACTION)) {
-      coin += hand.filter((c) => c === COPPER).length
+      coin += count(hand, (c) => c === COPPER)
     }
 
     return { coin }

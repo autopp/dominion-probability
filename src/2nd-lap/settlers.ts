@@ -13,6 +13,7 @@ import {
   topicForAtLeastOnce7,
   topicForAtLeastOnces,
 } from '@/util'
+import { count } from 'arubyray'
 
 type Topic = AtLeastOnce<5 | 6 | 7>
 
@@ -44,7 +45,7 @@ abstract class Settlers implements Tactic<[Card[], Card[]], Topic> {
     let coin = sumOfCoin(hand)
 
     if (canPickUp) {
-      coin += hand.filter((c) => c === ACTION).length
+      coin += count(hand, (c) => c === ACTION)
     }
 
     return { coin }

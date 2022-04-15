@@ -1,6 +1,7 @@
 import { run } from '@/runner'
 import { Card, COPPER, Result, Tactic } from '@/tactic'
 import { resultOfAny, simpleDeckPattern, splitByNoDraw, withCombinationOfEstates } from '@/util'
+import { count } from 'arubyray'
 
 type Topic = 'max5AndTrashingEstate' | 'copper4AndGoat'
 const GOAT: Card = 'goat'
@@ -39,7 +40,7 @@ class Goat implements Tactic<[Card[], Card[]], Topic> {
   private simulateTurn(hand: Card[]) {
     return {
       max5AndTrashingEstate: hand.every((c) => c === COPPER),
-      copper4AndGoat: hand.includes(GOAT) && hand.filter((c) => c === COPPER).length === 4,
+      copper4AndGoat: hand.includes(GOAT) && count(hand, (c) => c === COPPER) === 4,
     }
   }
 }
