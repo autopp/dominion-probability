@@ -70,7 +70,7 @@ class DoubleSupplies extends Supplies {
   }
 
   splitToHands(deck: Card[]): [Card[], Card[]] {
-    switch (count(deck, (c) => c === SUPPLIES)) {
+    switch (count(deck.slice(0, 5), (c) => c === SUPPLIES)) {
       case 2:
         return [deck.slice(0, 5).sort(), deck.slice(5, 12).sort()]
       case 1:
