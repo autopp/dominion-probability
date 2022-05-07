@@ -1,5 +1,5 @@
 import { run } from '@/runner'
-import { ACTION, Card, COPPER, Result, SILVER, Tactic } from '@/tactic'
+import { ACTION, Card, COPPER, ESTATE, Result, SILVER, Tactic } from '@/tactic'
 import {
   AtLeastOnce,
   genDecksWith,
@@ -96,4 +96,24 @@ class PotionWithDraw extends Potion {
   }
 }
 
-run(new PotionWithSilver(), new PotionWithCopper(), new PotionWithDraw())
+class PotionOnly extends Potion {
+  readonly title = () => 'ポーション・パス（あるいは騎士見習いなど）で4ターン目までに……'
+
+  genDecks(): Card[][] {
+    return genDecksWith(POTION)
+  }
+
+  splitToHands = splitByNoDraw
+}
+
+class PotionWithCurse extends Potion {
+  readonly title = () => 'ポーション・呪いで4ターン目までに……'
+
+  genDecks(): Card[][] {
+    return genDecksWith(ESTATE, POTION)
+  }
+
+  splitToHands = splitByNoDraw
+}
+
+run(new PotionWithSilver(), new PotionWithCopper(), new PotionWithDraw(), new PotionOnly(), new PotionWithCurse())
