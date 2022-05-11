@@ -71,4 +71,16 @@ class DoubleSilverWithTwoDraw extends Silver {
   }
 }
 
-run(new TripleSilver(), new DoubleSilverWithTwoDraw())
+class DoubleSilverWithThreeDraw extends Silver {
+  readonly title = () => '銀貨・銀貨・3ドローカード（鍛冶屋など）で4ターン目までに……'
+
+  genDecks(): Card[][] {
+    return genDecksWith(SILVER, SILVER, ACTION)
+  }
+
+  splitToHands(deck: Card[]) {
+    return splitByDraw(deck, 3)
+  }
+}
+
+run(new TripleSilver(), new DoubleSilverWithTwoDraw(), new DoubleSilverWithThreeDraw())
