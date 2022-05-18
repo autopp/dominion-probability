@@ -1,31 +1,21 @@
 import { run } from '@/runner'
-import { ACTION, Card, ESTATE, Result, Tactic } from '@/tactic'
+import { ACTION, Card, Result, Tactic } from '@/tactic'
 import {
   AtLeastOnce,
   Both,
+  genDecksWith,
   genDecksWithSilverAndAction,
   resultOfAtLeastOnces,
   resultOfBoth5,
-  resultOfTrashingEstate,
-  resultOfTrashingEstateAndAtLeastOnce5,
   simpleDeckPattern,
-  splitByDraw,
   splitByNoDraw,
   splitInto,
   sumOfCoin,
-  topicForAtLeastOnce5,
-  topicForAtLeastOnce6,
   topicForAtLeastOnces,
   topicForBoth5,
-  topicForTrashingEstate,
-  topicForTrashingEstateAndAtLeastOnce5,
-  TrashingEstate,
-  TrashingEstateAndAtLeastOnce,
 } from '@/util'
 
 type Topic = AtLeastOnce<5 | 6 | 7> | Both<5>
-
-const GAINED: Card = 'gained'
 
 abstract class Blockade implements Tactic<[Card[], Card[]], Topic> {
   abstract title(): string
@@ -107,8 +97,60 @@ class BlockadeWithSilverGainingCantripCoin extends Blockade {
   coinOfGained = () => 1
 }
 
+class BlockadeOnlyGainingSilver extends Blockade {
+  readonly title = () => 'Blockade・パス（あるいは騎士見習いなど）で銀貨を獲得する場合、4ターン目までに……'
+  genDecks() {
+    return genDecksWith(ACTION)
+  }
+
+  splitToHands = splitByNoDraw
+
+  coinOfGained = () => 2
+}
+
+class BlockadeOnlyGainingCantrip extends Blockade {
+  readonly title = () => 'Blockade・パス（あるいは騎士見習いなど）でキャントリップ0金を獲得する場合、4ターン目までに……'
+  genDecks() {
+    return genDecksWith(ACTION)
+  }
+
+  splitToHands(deck: Card[]) {
+    const i = deck.findIndex((c) => c === ACTION)
+
+    if (i >= 0 && i < 5) {
+      return splitInto(deck, 5, 6)
+    } else {
+      return splitByNoDraw(deck)
+    }
+  }
+
+  coinOfGained = () => 0
+}
+
+class BlockadeOnlyGainingCantripCoin extends Blockade {
+  readonly title = () => 'Blockade・パス（あるいは騎士見習いなど）でキャントリップ1金を獲得する場合、4ターン目までに……'
+  genDecks() {
+    return genDecksWith(ACTION)
+  }
+
+  splitToHands(deck: Card[]) {
+    const i = deck.findIndex((c) => c === ACTION)
+
+    if (i >= 0 && i < 5) {
+      return splitInto(deck, 5, 6)
+    } else {
+      return splitByNoDraw(deck)
+    }
+  }
+
+  coinOfGained = () => 1
+}
+
 run(
   new BlockadeWithSilverGainingSilver(),
   new BlockadeWithSilverGainingCantrip(),
-  new BlockadeWithSilverGainingCantripCoin()
+  new BlockadeWithSilverGainingCantripCoin(),
+  new BlockadeOnlyGainingSilver(),
+  new BlockadeOnlyGainingCantrip(),
+  new BlockadeOnlyGainingCantripCoin()
 )
