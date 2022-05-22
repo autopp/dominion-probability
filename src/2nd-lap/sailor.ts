@@ -3,6 +3,7 @@ import { ACTION, Card, ESTATE, Result, Tactic } from '@/tactic'
 import {
   AtLeastOnce,
   Both,
+  genDecksWith,
   genDecksWithSilverAndAction,
   resultOfAtLeastOnces,
   resultOfBoth5,
@@ -22,10 +23,10 @@ import {
 
 type Topic = AtLeastOnce<5 | 6> | Both<5> | TrashingEstate | TrashingEstateAndAtLeastOnce<5>
 
-class Sailor implements Tactic<[Card[], Card[]], Topic> {
-  readonly title = () => '銀貨・Sailor で4ターン目までに……'
+abstract class Sailor implements Tactic<[Card[], Card[]], Topic> {
+  abstract title(): string
+  abstract genDecks(): Card[][]
 
-  genDecks = genDecksWithSilverAndAction
   splitToHands = splitByNoDraw
   patternsOfDeck = simpleDeckPattern
 
@@ -68,4 +69,17 @@ class Sailor implements Tactic<[Card[], Card[]], Topic> {
   }
 }
 
-run(new Sailor())
+class SailorWithSilver extends Sailor {
+  readonly title = () => '銀貨・Sailor で4ターン目までに……'
+  genDecks = genDecksWithSilverAndAction
+}
+
+class SailorOnly extends Sailor {
+  readonly title = () => 'Sailor・パス（あるいは騎士見習いなど）で4ターン目までに……'
+
+  genDecks(): Card[][] {
+    return genDecksWith(ACTION)
+  }
+}
+
+run(new SailorWithSilver(), new SailorOnly())
