@@ -96,6 +96,22 @@ class PotionWithDraw extends Potion {
   }
 }
 
+class PotionWithDuration extends Potion {
+  readonly title = () => 'ポーション・持続2ドローカード（サルなど）で4ターン目までに……'
+
+  genDecks(): Card[][] {
+    return genDecksWith(ACTION, POTION)
+  }
+
+  splitToHands(deck: Card[]) {
+    const action = deck.findIndex((card) => card === ACTION)
+
+    return (
+      action >= 0 && action < 5 ? [deck.slice(0, 5), deck.slice(5, 12)] : [deck.slice(0, 5), deck.slice(5, 10)]
+    ) as [Card[], Card[]]
+  }
+}
+
 class PotionOnly extends Potion {
   readonly title = () => 'ポーション・パス（あるいは騎士見習いなど）で4ターン目までに……'
 
@@ -116,4 +132,11 @@ class PotionWithCurse extends Potion {
   splitToHands = splitByNoDraw
 }
 
-run(new PotionWithSilver(), new PotionWithCopper(), new PotionWithDraw(), new PotionOnly(), new PotionWithCurse())
+run(
+  new PotionWithSilver(),
+  new PotionWithCopper(),
+  new PotionWithDraw(),
+  new PotionOnly(),
+  new PotionWithCurse(),
+  new PotionWithDuration()
+)
