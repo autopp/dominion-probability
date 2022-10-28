@@ -34,6 +34,10 @@ export function topicForBoth<Coin extends number>(coin: Coin, geq = true): { [t 
   return { [`both${coin}`]: `両ターン共に${coin}金${geq ? '以上' : ''}が出る確率` } as { [t in Both<Coin>]: string }
 }
 
+export function topicForBoth4(geq = true): { [t in Both<4>]: string } {
+  return topicForBoth(4, geq)
+}
+
 export function topicForBoth5(geq = true): { [t in Both<5>]: string } {
   return topicForBoth(5, geq)
 }
