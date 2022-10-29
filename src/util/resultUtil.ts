@@ -107,6 +107,10 @@ export function resultOfBoth<Coin extends number>(
   return { [`both${coin}`]: both(t3, t4, coin) } as { [t in `both${Coin}`]: boolean }
 }
 
+export function resultOfBoth4(t3: { coin: number }, t4: { coin: number }): { both4: boolean } {
+  return resultOfBoth(t3, t4, 4)
+}
+
 export function resultOfBoth5(t3: { coin: number }, t4: { coin: number }): { both5: boolean } {
   return resultOfBoth(t3, t4, 5)
 }
