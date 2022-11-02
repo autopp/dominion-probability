@@ -132,4 +132,39 @@ class SilverOnly implements Tactic<[Card[], Card[]], Topic> {
   }
 }
 
-run(new DoubleSilver(), new SilverWithTwoDraw(), new SilverWithOneDrawOneCoin(), new SilverOnly())
+class SilverWithDurationOneCoin implements Tactic<[Card[], Card[]], Topic> {
+  title = () => '銀貨・持続1金（東大など）で4ターン目までに……'
+  genDecks = genDecksWithSilverAndAction
+  splitToHands = splitByNoDraw
+  patternsOfDeck = simpleDeckPattern
+
+  simulate(deck: [Card[], Card[]]): Result<Topic> {
+    const [hand3, hand4] = deck
+    const t3 = this.simulateTurn(hand3, false)
+    const t4 = this.simulateTurn(hand4, t3.duration)
+
+    return {
+      ...resultOfBoth4(t3, t4),
+      ...resultOfBothAndAtLeastOnce(t3, t4, 4, 5),
+    }
+  }
+
+  topics(): { [t in Topic]: string } {
+    return {
+      ...topicForBoth4(),
+      ...topicForBothAndAtLeastOnce(4, 5),
+    }
+  }
+
+  private simulateTurn(hand: Card[], duration: boolean) {
+    return { coin: sumOfCoin(hand, { [ACTION]: 1 }) + (duration ? 1 : 0), duration }
+  }
+}
+
+run(
+  new DoubleSilver(),
+  new SilverWithTwoDraw(),
+  new SilverWithOneDrawOneCoin(),
+  new SilverOnly(),
+  new SilverWithDurationOneCoin()
+)
