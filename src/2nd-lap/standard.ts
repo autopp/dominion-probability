@@ -133,7 +133,7 @@ class SilverOnly implements Tactic<[Card[], Card[]], Topic> {
 }
 
 class SilverWithDurationOneCoin implements Tactic<[Card[], Card[]], Topic> {
-  title = () => '銀貨・持続1金（東大など）で4ターン目までに……'
+  title = () => '銀貨・持続1金（灯台など）で4ターン目までに……'
   genDecks = genDecksWithSilverAndAction
   splitToHands = splitByNoDraw
   patternsOfDeck = simpleDeckPattern
