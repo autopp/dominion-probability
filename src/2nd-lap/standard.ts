@@ -4,6 +4,7 @@ import {
   Both,
   BothAndAtLeastOnce,
   genDecksWith,
+  genDecksWithDouble,
   genDecksWithDoubleSilver,
   genDecksWithSilverAndAction,
   resultOfBoth4,
@@ -161,10 +162,40 @@ class SilverWithDurationOneCoin implements Tactic<[Card[], Card[]], Topic> {
   }
 }
 
+class DoubleDurationOneCoin implements Tactic<[Card[], Card[]], Topic> {
+  title = () => '持続1金・持続1金（灯台など）で4ターン目までに……'
+  genDecks = () => genDecksWithDouble(ACTION)
+  splitToHands = splitByNoDraw
+  patternsOfDeck = simpleDeckPattern
+
+  simulate(deck: [Card[], Card[]]): Result<Topic> {
+    const [hand3, hand4] = deck
+    const t3 = this.simulateTurn(hand3, false)
+    const t4 = this.simulateTurn(hand4, t3.duration)
+
+    return {
+      ...resultOfBoth4(t3, t4),
+      ...resultOfBothAndAtLeastOnce(t3, t4, 4, 5),
+    }
+  }
+
+  topics(): { [t in Topic]: string } {
+    return {
+      ...topicForBoth4(),
+      ...topicForBothAndAtLeastOnce(4, 5),
+    }
+  }
+
+  private simulateTurn(hand: Card[], duration: boolean) {
+    return { coin: sumOfCoin(hand, { [ACTION]: 1 }) + (duration ? 1 : 0), duration }
+  }
+}
+
 run(
   new DoubleSilver(),
   new SilverWithTwoDraw(),
   new SilverWithOneDrawOneCoin(),
   new SilverOnly(),
-  new SilverWithDurationOneCoin()
+  new SilverWithDurationOneCoin(),
+  new DoubleDurationOneCoin()
 )
