@@ -133,9 +133,9 @@ class SilverOnly implements Tactic<[Card[], Card[]], Topic> {
   }
 }
 
-class SilverWithDurationOneCoin implements Tactic<[Card[], Card[]], Topic> {
-  title = () => '銀貨・持続1金（灯台など）で4ターン目までに……'
-  genDecks = genDecksWithSilverAndAction
+abstract class Duration1Coin implements Tactic<[Card[], Card[]], Topic> {
+  abstract title: () => string
+  abstract genDecks: () => Card[][]
   splitToHands = splitByNoDraw
   patternsOfDeck = simpleDeckPattern
 
@@ -162,33 +162,14 @@ class SilverWithDurationOneCoin implements Tactic<[Card[], Card[]], Topic> {
   }
 }
 
-class DoubleDurationOneCoin implements Tactic<[Card[], Card[]], Topic> {
+class SilverWithDurationOneCoin extends Duration1Coin {
+  title = () => '銀貨・持続1金（灯台など）で4ターン目までに……'
+  genDecks = genDecksWithSilverAndAction
+}
+
+class DoubleDurationOneCoin extends Duration1Coin {
   title = () => '持続1金・持続1金（灯台など）で4ターン目までに……'
   genDecks = () => genDecksWithDouble(ACTION)
-  splitToHands = splitByNoDraw
-  patternsOfDeck = simpleDeckPattern
-
-  simulate(deck: [Card[], Card[]]): Result<Topic> {
-    const [hand3, hand4] = deck
-    const t3 = this.simulateTurn(hand3, false)
-    const t4 = this.simulateTurn(hand4, t3.duration)
-
-    return {
-      ...resultOfBoth4(t3, t4),
-      ...resultOfBothAndAtLeastOnce(t3, t4, 4, 5),
-    }
-  }
-
-  topics(): { [t in Topic]: string } {
-    return {
-      ...topicForBoth4(),
-      ...topicForBothAndAtLeastOnce(4, 5),
-    }
-  }
-
-  private simulateTurn(hand: Card[], duration: boolean) {
-    return { coin: sumOfCoin(hand, { [ACTION]: 1 }) + (duration ? 1 : 0), duration }
-  }
 }
 
 run(
