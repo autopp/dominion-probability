@@ -1,10 +1,11 @@
 import { run } from '@/runner'
-import { ACTION, Card, ESTATE, Result, Tactic } from '@/tactic'
+import { ACTION, COPPER, Card, ESTATE, Result, Tactic } from '@/tactic'
 import {
   AtLeastOnce,
   Both,
   TrashingEstate,
   TrashingEstateAndAtLeastOnce,
+  genDecksWith,
   genDecksWithSilverAndAction,
   resultOfAtLeastOnces,
   resultOfBoth5,
@@ -22,10 +23,10 @@ import {
 
 type Topic = AtLeastOnce<5 | 6> | Both<5> | TrashingEstate | TrashingEstateAndAtLeastOnce<5>
 
-class Maroon implements Tactic<[Card[], Card[]], Topic> {
-  readonly title = () => '屋敷場かつ銀貨・置き去りで4ターン目までに……'
+abstract class Maroon implements Tactic<[Card[], Card[]], Topic> {
+  abstract title(): string
 
-  genDecks = genDecksWithSilverAndAction
+  abstract genDecks(): string[][]
 
   splitToHands(deck: Card[]): [Card[], Card[]] {
     const i = deck.findIndex((card) => card === ACTION)
@@ -77,4 +78,14 @@ class Maroon implements Tactic<[Card[], Card[]], Topic> {
   }
 }
 
-run(new Maroon())
+class MaroonWithSilver extends Maroon {
+  readonly title = () => '屋敷場かつ置き去り・銀貨で4ターン目までに……'
+  genDecks = genDecksWithSilverAndAction
+}
+
+class MaroonWithCopper extends Maroon {
+  readonly title = () => '屋敷場かつ置き去り・銅貨で4ターン目までに……'
+  genDecks = () => genDecksWith(COPPER, ACTION)
+}
+
+run(new MaroonWithSilver(), new MaroonWithCopper())

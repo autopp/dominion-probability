@@ -1,5 +1,5 @@
 import { run } from '@/runner'
-import { Card, ESTATE, Result, SILVER, Tactic } from '@/tactic'
+import { COPPER, Card, ESTATE, Result, SILVER, Tactic } from '@/tactic'
 import {
   AtLeastOnce,
   Both,
@@ -76,4 +76,16 @@ class Rope implements Tactic<[Card[], Card[]], Topic> {
   }
 }
 
-run(new Rope())
+class RopeSilver extends Rope {
+  readonly title = () => '屋敷場かつ銀貨・縄で4ターン目までに……'
+
+  genDecks = () => genDecksWith(SILVER, ROPE)
+}
+
+class RopeCopper extends Rope {
+  readonly title = () => '屋敷場かつ銀貨・銅貨（あるいは農民など）で4ターン目までに……'
+
+  genDecks = () => genDecksWith(COPPER, ROPE)
+}
+
+run(new RopeSilver(), new RopeCopper())

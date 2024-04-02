@@ -1,5 +1,5 @@
 import { run } from '@/runner'
-import { ACTION, Card, ESTATE, Result, Tactic } from '@/tactic'
+import { ACTION, COPPER, Card, ESTATE, Result, Tactic } from '@/tactic'
 import {
   AtLeastOnce,
   Both,
@@ -70,16 +70,21 @@ abstract class Sailor implements Tactic<[Card[], Card[]], Topic> {
 }
 
 class SailorWithSilver extends Sailor {
-  readonly title = () => '銀貨・Sailor で4ターン目までに……'
+  readonly title = () => '船乗り・銀貨で4ターン目までに……'
   genDecks = genDecksWithSilverAndAction
 }
 
+class SailorWithCopper extends Sailor {
+  readonly title = () => '船乗り・銅貨（あるいは農民など）で4ターン目までに……'
+  genDecks = () => genDecksWith(COPPER, ACTION)
+}
+
 class SailorOnly extends Sailor {
-  readonly title = () => 'Sailor・パス（あるいは騎士見習いなど）で4ターン目までに……'
+  readonly title = () => '船乗り・パス（あるいは騎士見習いなど）で4ターン目までに……'
 
   genDecks(): Card[][] {
     return genDecksWith(ACTION)
   }
 }
 
-run(new SailorWithSilver(), new SailorOnly())
+run(new SailorWithSilver(), new SailorWithCopper(), new SailorOnly())
