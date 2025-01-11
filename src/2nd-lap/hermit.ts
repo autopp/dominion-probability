@@ -3,6 +3,7 @@ import { ACTION, Card, ESTATE, Result, Tactic } from '@/tactic'
 import {
   AtLeastOnce,
   genDecksWithDouble,
+  genDecksWithSilverAndAction,
   resultOfAtLeastOnces,
   simpleDeckPattern,
   splitByNoDraw,
@@ -16,12 +17,10 @@ type TrashingEstates = `trashingEstates${1 | 2}`
 
 type Topic = AtLeastOnce<5> | UsingHermits | TrashingEstates
 
-class Hermit implements Tactic<[Card[], Card[]], Topic> {
-  readonly title = () => '隠遁者・隠遁者で4ターン目までに……'
+abstract class Hermit implements Tactic<[Card[], Card[]], Topic> {
+  abstract title(): string
 
-  genDecks() {
-    return genDecksWithDouble(ACTION)
-  }
+  abstract genDecks(): string[][]
 
   readonly splitToHands = splitByNoDraw
   readonly patternsOfDeck = simpleDeckPattern
@@ -58,4 +57,18 @@ class Hermit implements Tactic<[Card[], Card[]], Topic> {
   }
 }
 
-run(new Hermit())
+class DoubleHermit extends Hermit {
+  readonly title = () => '隠遁者・隠遁者で4ターン目までに……'
+
+  genDecks() {
+    return genDecksWithDouble(ACTION)
+  }
+}
+
+class HermitWithSilver extends Hermit {
+  readonly title = () => '隠遁者・銀貨で4ターン目までに……'
+
+  genDecks = genDecksWithSilverAndAction
+}
+
+run(new DoubleHermit(), new HermitWithSilver())
